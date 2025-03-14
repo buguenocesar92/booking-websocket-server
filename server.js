@@ -43,7 +43,7 @@ const redis = new Redis({
 });
 
 // Suscribirse a los canales privados usando un patrón que incluya el prefijo
-redis.psubscribe("laravel_database_private-chat-*", (err, count) => {
+redis.psubscribe("laravel_database_private-user.*", (err, count) => {
   if (err) {
     console.error("Error al suscribirse al patrón:", err);
   } else {
@@ -71,7 +71,7 @@ io.on("connection", (socket) => {
   socket.on("join-private-channel", (data) => {
     // El cliente debe enviar el canal con el prefijo completo, por ejemplo: "laravel_database_private-chat-1"
     const channelName = data.channel;
-    const expectedChannel = `laravel_database_private-chat-${socket.data.user.sub}`; // Usamos socket.data.user.sub (de tu token, por ejemplo "1")
+    const expectedChannel = `laravel_database_private-user.${socket.data.user.sub}`;
     console.log("Canal recibido:", channelName);
     console.log("Canal esperado:", expectedChannel);
     
