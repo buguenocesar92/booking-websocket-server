@@ -1,33 +1,9 @@
 #########################################
-# Laravel
-#########################################
-/vendor
-/node_modules
-/public/storage
-/storage/*.key
-.env
-Homestead.json
-Homestead.yaml
-.phpunit.result.cache
-.env.*.backup
-/.idea
-/.vscode
-/_ide_helper.php
-/_ide_helper_models.php
-*.log
-*.sqlite
-
-#########################################
-# Laravel: Archivos y carpetas de cache
-#########################################
-/bootstrap/cache/*.php
-
-#########################################
 # Node.js (para el servidor websocket, por ejemplo, en "websocket-server")
 #########################################
-/websocket-server/node_modules
-/websocket-server/dist
-/websocket-server/.env
+node_modules
+dist
+.env
 
 #########################################
 # Logs y archivos temporales
