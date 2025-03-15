@@ -42,12 +42,12 @@ const redis = new Redis({
   port: 6379
 });
 
-// Suscribirse a los canales privados usando un patrón que incluya el prefijo
-redis.psubscribe("laravel_database_private-user.*", (err, count) => {
+// Suscribirse a los canales de reservas usando un patrón que incluya el prefijo
+redis.psubscribe("laravel_database_private-reservations.*", (err, count) => {
   if (err) {
     console.error("Error al suscribirse al patrón:", err);
   } else {
-    console.log(`Suscrito a ${count} patrón(es)`);
+    console.log(`Suscrito a ${count} patrón(es) de reservas`);
   }
 });
 
@@ -67,11 +67,11 @@ redis.on("pmessage", (pattern, channel, message) => {
 io.on("connection", (socket) => {
   console.log("Cliente conectado:", socket.id, "Usuario:", socket.data.user);
 
-  // Evento para unirse a un canal privado
+  // Evento para unirse a un canal privado de reservas
   socket.on("join-private-channel", (data) => {
-    // El cliente debe enviar el canal con el prefijo completo, por ejemplo: "laravel_database_private-chat-1"
+    // El cliente debe enviar el canal completo, por ejemplo: "laravel_database_private-reservations-1"
     const channelName = data.channel;
-    const expectedChannel = `laravel_database_private-user.${socket.data.user.sub}`;
+    const expectedChannel = `laravel_database_private-reservations.${socket.data.user.sub}`;
     console.log("Canal recibido:", channelName);
     console.log("Canal esperado:", expectedChannel);
     
